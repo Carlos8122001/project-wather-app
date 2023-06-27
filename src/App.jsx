@@ -11,9 +11,7 @@ import { useState } from "react";
 import CardClimate from "./components/CardClimate";
 import SearchIcon from "@mui/icons-material/Search";
 
-const API_WEATHER = `http://api.weatherapi.com/v1/current.json?key=${
-  import.meta.env.VITE_API_KEY
-}&lang=es&q=`;
+const API_WEATHER = `http://api.weatherapi.com/v1/current.json?key=694ecbc9d6724c69843220411232206&lang=es&q=`;
 
 function App() {
   const [loading, setLoading] = useState(false);

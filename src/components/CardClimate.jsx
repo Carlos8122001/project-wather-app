@@ -8,34 +8,22 @@ import { CardMedia } from "@mui/material";
 function CardClimate({ data }) {
   return (
     <>
-      <Card
-        sx={{
-          maxWidth: 380,
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: "20px",
-          height: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        elevation={3}
-      >
-        <Box
-          component="img"
-          alt={data.conditionText}
-          src={data.icon}
-          sx={{ maxWidth: "300px" }}
-        />
-        <CardContent>
-          <Typography variant="h4">{data.temperature} °C</Typography>
-          <Typography variant="h5">{data.conditionText}</Typography>
-          <br />
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            {data.city}, {data.country}
-          </Typography>
-        </CardContent>
-      </Card>
+    <Box sx={{width:"100%",height:"60%",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+      <Box
+        component="img"
+        alt={data.conditionText}
+        src={data.icon}
+        minWidth={"250px"}
+        margin={0}
+      />
+
+      <Typography variant="h2" fontSize={"50px"} textAlign={"center"}>{data.temperature} °C</Typography>
+      <Typography variant="h5" textAlign={"center"}>{data.conditionText}</Typography>
+      <Typography variant="h5"  textAlign={"center"}>{data.localtime}</Typography>
+      <Typography variant="h4" textAlign={"center"} sx={{ fontWeight: "bold" }}>
+        {data.city}, {data.country}
+      </Typography>
+      </Box>
     </>
   );
 }

@@ -1,15 +1,19 @@
 import {
   Box,
   Typography,
-  TextField,
-  Button,
   Container,
   Link,
   Skeleton,
+  Paper,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  TextField,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import CardClimate from "./components/CardClimate";
-import SearchIcon from "@mui/icons-material/Search";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -22,6 +26,7 @@ function App() {
     condition: "",
     conditionText: "",
     icon: "",
+    localtime: "",
   });
 
   const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${
@@ -45,6 +50,7 @@ function App() {
               condition: climate.current.condition.code,
               conditionText: climate.current.condition.text,
               icon: climate.current.condition.icon,
+              localtime: climate.location.localtime,
             })
           );
       } catch (error) {
@@ -58,76 +64,86 @@ function App() {
   };
   return (
     <>
-      <Container
-        maxWidth={"sm"}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Box
-          sx={{ marginTop: "20px" }}
+      <Container maxWidth={"sm"}>
+        <Paper
           component={"form"}
           onSubmit={(ev) => {
             ev.preventDefault();
             handleSubmit();
           }}
+          variant="elevation"
+          elevation={20}
+          sx={{
+            width: "80%",
+            height: "auto",
+            m: 3,
+            p: 3,
+            display: "flex",
+            flexDirection: "column",
+          }}
         >
           <Typography
-            variant="h3"
-            fontWeight={"bold"}
-            textAlign={"center"}
-            sx={{ mt: "15px", mb: "30px" }}
+            variant="h4"
+            sx={{ textAlign: "center", fontWeight: "bold", mb: 2 }}
           >
-            Wather App
+            Weather app
           </Typography>
-          <TextField
+
+          <OutlinedInput
             id="country"
             placeholder="Country"
             size="medium"
             value={country}
             onChange={(ev) => setCountry(ev.target.value)}
             error={error}
-            variant="outlined"
-            helperText={error ? "El campo es requerido" : ""}
+            variant="filled"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton type="submit" edge="end">
+                  <SearchIcon fontSize="large" />
+                </IconButton>
+              </InputAdornment>
+            }
           />
-          <Button
-            variant="contained"
-            sx={{ borderRadius: 0, height: "56px" }}
-            type="submit"
-            size="large"
+
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
           >
-            <SearchIcon />
-          </Button>
+            {loading ? (
+              <CircularProgress size={70} />
+            ) : (
+              data.city !== "" && <CardClimate data={data} />
+            )}
+          </Box>
+        </Paper>
+
+        <Box
+          component={"footer"}
+          sx={{ position: "absolute", left: 10, top: 570 }}
+        >
+          <Typography variant="h6" sx={{ mt: 5 }}>
+            Powered by:
+            <Link href="https://www.weatherapi.com/" title="Weather API">
+              WeatherAPI.com
+            </Link>
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "14px",
+              opacity: 0.8,
+            }}
+          >
+            © 2023 – Creation of Carlos Velásquez
+          </Typography>
         </Box>
       </Container>
-
-      {loading ? (
-        <Skeleton
-          variant="rectangular"
-          sx={{
-            maxWidth: "370px",
-            height: "220px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginTop: "10px",
-          }}
-        />
-      ) : (
-        data.city !== "" && <CardClimate data={data} />
-      )}
-
-      <Box component={"footer"}>
-        <Typography textAlign="center" variant="h6" sx={{ mt: 5 }}>
-          Powered by:
-          <Link href="https://www.weatherapi.com/" title="Weather API">
-            WeatherAPI.com
-          </Link>
-        </Typography>
-      </Box>
-      <Typography
-        textAlign="left"
-        sx={{ mt: 48, fontSize: "14px", opacity: 0.8, ml: "10px" }}
-      >
-        © 2023 – Creation of Carlos Velásquez
-      </Typography>
     </>
   );
 }

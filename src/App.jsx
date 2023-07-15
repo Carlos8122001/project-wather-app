@@ -72,7 +72,7 @@ function App() {
             handleSubmit();
           }}
           variant="elevation"
-          elevation={20}
+          elevation={24}
           sx={{
             width: "80%",
             height: "auto",
@@ -80,6 +80,7 @@ function App() {
             p: 3,
             display: "flex",
             flexDirection: "column",
+            
           }}
         >
           <Typography

@@ -64,7 +64,12 @@ function App() {
   };
   return (
     <>
-      <Container maxWidth={"sm"}>
+      <Container maxWidth={"sm"} sx={{
+        height:"auto",
+        display:"flex",
+        justifyContent:"center",
+        flexDirection:"column"
+        }}>
         <Paper
           component={"form"}
           onSubmit={(ev) => {
@@ -75,11 +80,14 @@ function App() {
           elevation={24}
           sx={{
             width: "80%",
-            height: "auto",
+            height:"auto",
             m: 3,
             p: 3,
             display: "flex",
             flexDirection: "column",
+            alignItems:"center",
+            borderRadius:"10px",
+            overflow:"hidden"
             
           }}
         >
@@ -126,8 +134,11 @@ function App() {
         </Paper>
 
         <Box
-          component={"footer"}
-          sx={{ position: "absolute", left: 10, top: 570 }}
+          sx={{
+          position:"absolute",
+          bottom:10,
+          left:7
+          }}
         >
           <Typography variant="h6" sx={{ mt: 5 }}>
             Powered by:

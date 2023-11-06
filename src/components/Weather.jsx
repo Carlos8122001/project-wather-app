@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import WeatherData from "../utils/mocks/WeatherData";
-import WeatherIcon from "../utils/mocks/WeatherIcon";
 import AirIcon from "@mui/icons-material/Air";
 import WaterIcon from "@mui/icons-material/Water";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
@@ -12,106 +11,108 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { CardMedia } from "@mui/material";
 
 export default function Weather({ data }) {
-
+  const [loading, setLoading] = useState(false);
   return (
     <>
-      <Typography
-        variant="h6"
-        fontSize={16}
-        fontWeight={"light"}
-        fontStyle={"italic"}
-        mt={5}
-        textAlign={"center"}
-        color={"grey"}
-      >
-        {WeatherData.current.last_updated}
-      </Typography>
-      <Typography
-        fontSize={48}
-        variant="h3"
-        fontWeight={"bold"}
-        fontStyle={"italic"}
-        textAlign={"center"}
-        gutterBottom
-      >
-        {WeatherData.location.name}
-      </Typography>
-      <Box
-        sx={{
-          mt: 0,
-          mb: 3,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CardMedia
-          sx={{ width: 100, height: 100, objectFit: "cover" }}
-          image={WeatherData.current.condition.icon}
-        />
-
-        <Typography
-          fontSize={100}
-          variant="h1"
-          fontWeight={"bold"}
-          fontStyle={"italic"}
-          textAlign={"center"}
-        >
-          {WeatherData.current.temp_f}
-        </Typography>
+      <Box>
         <Typography
           variant="h6"
-          fontSize={22}
+          fontSize={24}
+          fontWeight={"light"}
+          fontStyle={"italic"}
+          mt={5}
+          textAlign={"center"}
+          color={"grey"}
+        >
+          {data.current.last_updated}
+        </Typography>
+        <Typography
+          fontSize={48}
+          variant="h3"
           fontWeight={"bold"}
           fontStyle={"italic"}
           textAlign={"center"}
+          gutterBottom
         >
-          {WeatherData.current.condition.text}
+          {data.location.name}
         </Typography>
-      </Box>
+        <Box
+          sx={{
+            mt: 0,
+            mb: 3,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CardMedia
+            sx={{ width: 64, height: 64, objectFit: "cover" }}
+            image={data.current.condition.icon}
+          />
 
-      <List
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <AirIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Wind"
-            secondary={`${WeatherData.current.wind_kph}KM`}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <WaterIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Humidity"
-            secondary={`${WeatherData.current.humidity}%`}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <ThermostatIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Precipitation"
-            secondary={WeatherData.current.precip_in}
-          />
-        </ListItem>
-      </List>
+          <Typography
+            fontSize={100}
+            variant="h1"
+            fontWeight={"bold"}
+            fontStyle={"italic"}
+            textAlign={"center"}
+          >
+            {data.current.temp_f}
+          </Typography>
+          <Typography
+            variant="h6"
+            fontSize={22}
+            fontWeight={"bold"}
+            fontStyle={"italic"}
+            textAlign={"center"}
+          >
+            {data.current.condition.text}
+          </Typography>
+        </Box>
+
+        <List
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <AirIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Wind"
+              secondary={`${data.current.wind_kph}KM`}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <WaterIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Humidity"
+              secondary={`${data.current.humidity}%`}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <ThermostatIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="Precipitation"
+              secondary={data.current.precip_in}
+            />
+          </ListItem>
+        </List>
+      </Box>
     </>
   );
 }

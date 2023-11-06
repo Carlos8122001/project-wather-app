@@ -1,81 +1,139 @@
 import React, { useState } from "react";
 import WeatherData from "../utils/mocks/WeatherData";
 import Weather from "../components/Weather";
-import { Box, Card, IconButton } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import {
+  Box,
+  Card,
+  CardMedia,
+  IconButton,
+  InputBase,
+  Paper,
+  Typography,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import RoomIcon from "@mui/icons-material/Room";
+import FormHelperText from "@mui/material/FormHelperText";
+import { getFetch } from "../services/Fetch";
+import LoadingLinear from "../components/LoadingLinear";
+import Footer from "../components/Footer";
 
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#A0AAB4",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#B2BAC2",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#E0E3E7 ",
-      borderRadius: 28,
-      transition: "fieldset 0.5s",
-    },
-    "&:hover fieldset": {
-      borderColor: "#B2BAC2",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#6F7E8C",
-    },
-  },
-});
+const API_KEY = import.meta.env.VITE_API_KEY;
+const API_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&lang=es&q=;`;
 
 export default function Layout() {
+  const [loading, setLoading] = useState(false);
   const [city, setCity] = useState("");
+  const [data, setData] = useState(null);
+  const [errorInput, setErrorInput] = useState({
+    value: false,
+    message: "",
+  });
+
+  console.log(data);
+
+  const getClimate = async (value) => {
+    try {
+      setLoading(true);
+      const response = await getFetch(API_URL, value);
+      setData(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  };
+
+  const handleSubmit = () => {
+    setCity("");
+    getClimate(city);
+  };
+
+  const validInput = (event) => {
+    event.preventDefault();
+
+    if (city === "") {
+      setErrorInput({
+        value: true,
+        message: "error the field is empty",
+      });
+    } else {
+      setErrorInput({
+        value: false,
+        message: "",
+      });
+
+      handleSubmit();
+    }
+  };
+
   return (
     <>
       <Card
         variant="elevation"
-        elevation={10}
+        elevation={5}
         sx={{
-          width: 470,
+          width: { xs: "90%", sm: 460 },
           height: "auto",
           mx: "auto",
-          mt: 10,
           display: "flex",
           flexDirection: "column",
-          borderRadius: 8,
+          borderRadius: 6,
           alignItems: "center",
-          py: 3,
+          justifyContent: "center",
+          py: 4,
+          px: 1,
         }}
       >
-        <Box
-         component={"form"}
-         onSubmit={(event)=>{
-          event.preventDefault()
-          setCity("")
-          console.log("enviado")
-         }}
+        <Paper
+          component="form"
+          onSubmit={(event) => {
+            validInput(event);
+          }}
           sx={{
+            p: "2px 4px",
             display: "flex",
             alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "center",
+            borderRadius: "20px",
+            ":focus-within": {
+              borderColor: errorInput.value ? "red" : "gray",
+            },
           }}
+          variant="outlined"
         >
-          <CssTextField
-            size="small"
-            autoComplete="none"
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
             placeholder="Enter your city"
+            inputProps={{ "aria-label": "search google maps" }}
             value={city}
-            onChange={(event)=>{
-            setCity(event.target.value)
+            onChange={(event) => {
+              setCity(event.target.value);
             }}
           />
-          <IconButton type="submit">
-            <SearchIcon fontSize="large" />
+          <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
           </IconButton>
-        </Box>
-        <Weather />
+        </Paper>
+        <FormHelperText error={errorInput.value}>
+          {errorInput.message}
+        </FormHelperText>
+        {data ? (
+          loading ? (
+            <LoadingLinear />
+          ) : (
+            <Weather data={data} />
+          )
+        ) : (
+          <Box
+            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+          >
+            <CardMedia
+              sx={{ width: 64, height: 64, objectFit: "cover" }}
+              image={"/img/day.png"}
+            />
+            <Typography variant="h5">Get real time weather</Typography>
+          </Box>
+        )}
       </Card>
     </>
   );

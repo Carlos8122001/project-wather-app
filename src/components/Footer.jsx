@@ -1,16 +1,29 @@
-import { Avatar, Box, CardMedia, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import React from "react";
 
 export default function Footer() {
   return (
     <>
-      <a href="https://www.weatherapi.com/" title="Free Weather API">
-        <img
-          src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"
-          alt="Weather data by WeatherAPI.com"
-          border="0"
-        />
-      </a>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "center",
+          py: 1,
+          textAlign: "center",
+          mt: 5,
+          position: "absolute",
+          bottom: "0",
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{ fontSize: { xs: "14px", sm: "16px" }, fontWeight: "bold" }}
+        >
+          © 2023 – Carlos Velásquez
+        </Typography>
+      </Box>
     </>
   );
 }

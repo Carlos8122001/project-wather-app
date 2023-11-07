@@ -3,15 +3,14 @@ import WeatherData from "../utils/mocks/WeatherData";
 import AirIcon from "@mui/icons-material/Air";
 import WaterIcon from "@mui/icons-material/Water";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
-import { Avatar, Box, Card, Container, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { CardMedia } from "@mui/material";
 
-export default function Weather({ data }) {
-  const [loading, setLoading] = useState(false);
+export default function WeatherInfo({ data }) {
   return (
     <>
       <Box>
@@ -79,7 +78,7 @@ export default function Weather({ data }) {
           }}
         >
           <ListItem>
-            <ListItemAvatar>
+            <ListItemAvatar sx={{ display: { xs: "none", sm: "block" } }}>
               <Avatar>
                 <AirIcon />
               </Avatar>
@@ -90,7 +89,7 @@ export default function Weather({ data }) {
             />
           </ListItem>
           <ListItem>
-            <ListItemAvatar>
+            <ListItemAvatar sx={{ display: { xs: "none", sm: "block" } }}>
               <Avatar>
                 <WaterIcon />
               </Avatar>
@@ -101,7 +100,7 @@ export default function Weather({ data }) {
             />
           </ListItem>
           <ListItem>
-            <ListItemAvatar>
+            <ListItemAvatar sx={{ display: { xs: "none", sm: "block" } }}>
               <Avatar>
                 <ThermostatIcon />
               </Avatar>

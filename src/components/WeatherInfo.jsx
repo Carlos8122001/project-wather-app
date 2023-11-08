@@ -57,7 +57,7 @@ export default function WeatherInfo({ data }) {
             fontStyle={"italic"}
             textAlign={"center"}
           >
-            {data.current.temp_f}
+            {data.current.temp_c} º
           </Typography>
           <Typography
             variant="h6"

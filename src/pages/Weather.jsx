@@ -53,7 +53,7 @@ export default function Weather() {
     if (city === "") {
       setErrorInput({
         value: true,
-        message: "error the field is empty",
+        message: "Error el campo esta vacío",
       });
     } else {
       setErrorInput({
@@ -102,8 +102,7 @@ export default function Weather() {
           >
             <InputBase
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Enter your city"
-              inputProps={{ "aria-label": "search google maps" }}
+              placeholder="Ingresa tu ciudad o pais"
               value={city}
               onChange={(event) => {
                 setCity(event.target.value);
@@ -134,7 +133,7 @@ export default function Weather() {
                 sx={{ width: 64, height: 64, objectFit: "cover" }}
                 image={"/img/day.png"}
               />
-              <Typography variant="h5">Get real time weather</Typography>
+              <Typography variant="h5">Obtén el clima en tiempo real</Typography>
             </Box>
           )}
         </Card>

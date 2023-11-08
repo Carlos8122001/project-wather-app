@@ -84,7 +84,7 @@ export default function WeatherInfo({ data }) {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary="Wind"
+              primary="Viento"
               secondary={`${data.current.wind_kph}KM`}
             />
           </ListItem>
@@ -95,7 +95,7 @@ export default function WeatherInfo({ data }) {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary="Humidity"
+              primary="Humedad"
               secondary={`${data.current.humidity}%`}
             />
           </ListItem>
@@ -106,7 +106,7 @@ export default function WeatherInfo({ data }) {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary="Precipitation"
+              primary="Precipitación"
               secondary={data.current.precip_in}
             />
           </ListItem>

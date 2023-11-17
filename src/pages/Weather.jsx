@@ -77,7 +77,7 @@ export default function Weather() {
             mx: "auto",
             display: "flex",
             flexDirection: "column",
-            borderRadius: 6,
+            borderRadius: 4,
             alignItems: "center",
             justifyContent: "center",
             py: 3,
